@@ -1,12 +1,17 @@
 import IniParser.IniParser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Main {
-    public static void main(String[] args) throws RuntimeException {
+    public static void main(String[] args) throws RuntimeException, FileNotFoundException {
 
         var ini = new IniParser();
-        var data = ini.Parse("input.ini");
+        var data = ini.Parse(new File("input.ini"));
 
-        data.getValue("Install4F96D1932A9F858E", "Default", "String");
-        data.getValue("General", "StartWithLastProfile", "Integer");
+        System.out.println(data.getString("Install4F96D1932A9F858E", "Default"));
+        System.out.println(data.getInt("General", "StartWithLastProfile"));
+        System.out.println(data.getFloat("Profile1", "Default"));
+
     }
 }
