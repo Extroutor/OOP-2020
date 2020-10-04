@@ -9,9 +9,9 @@ public class Main {
         var ini = new IniParser();
         var data = ini.Parse(new File("input.ini"));
 
-        System.out.println(data.getString("Install4F96D1932A9F858E", "Default"));
-        System.out.println(data.getInt("General", "StartWithLastProfile"));
-        System.out.println(data.getFloat("Profile1", "Default"));
-
+        System.out.println(data.getString("COMMON", "DiskCachePath"));
+        System.out.println(data.getInt("LEGACY_XML", "ListenTcpPort"));
+        System.out.println(data.getFloat("ADC_DEV", "BufferLenSecons"));
+        
     }
 }
