@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Data {
-    private final HashMap<String, ArrayList<String>> map;
+    private final HashMap<String, HashMap<String, String>> map;
 
-    public Data(HashMap<String, ArrayList<String>> _map) {
+    public Data(HashMap<String, HashMap<String, String>> _map) {
         map = _map;
     }
 
@@ -43,8 +43,7 @@ public class Data {
     public String result (String section, String parameter) throws RuntimeException {
 
         try {
-            int n = map.get(section).indexOf(parameter);
-            return map.get(section).get(n + 1);
+            return map.get(section).get(parameter);
         } catch (Exception e) {
             throw new PropOrSecNotFoundException("Error: not such section or property");
         }
