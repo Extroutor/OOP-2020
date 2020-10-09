@@ -26,9 +26,9 @@ public class IniParser {
 
     }
 
-    private HashMap<String, ArrayList<String>> reading(File file) throws RuntimeException, FileNotFoundException {
+    private HashMap<String, HashMap<String, String>> reading(File file) throws RuntimeException, FileNotFoundException {
 
-        HashMap<String, ArrayList<String>> _map = new HashMap<>();
+        HashMap<String, HashMap<String, String>> _map = new HashMap<>();
         if (file.getName().matches("[a-zA-Z0-9_]* \\.ini"))
             throw new WrongFileExtensionException("File extension is not INI");
         Scanner scanner = new Scanner(file);
@@ -42,13 +42,16 @@ public class IniParser {
             else {
                 if (secwthcom.matches(sectionPattern)) {
                     currentKey = secwthcom.substring(1, secwthcom.length() - 1);
-                    _map.put(currentKey, new ArrayList<>());
+                    _map.put(currentKey, new HashMap<>());
                 } else if (secwthcom.matches(propertyPattern)) {
-                    String[] words = secwthcom.split("=");
-                    String string = words[0].trim();
-                    _map.get(currentKey).add(string);
-                    String string2 = words[1].trim();
-                    _map.get(currentKey).add(string2);
+                    if (currentKey.equals(""))
+                        throw new FileFormatErrorException("Error: no first section");
+                    else {
+                        String[] words = secwthcom.split("=");
+                        String string = words[0].trim();
+                        String string2 = words[1].trim();
+                        _map.get(currentKey).put(string, string2);
+                    }
                 } else
                     throw new FileFormatErrorException("Wrong format of ini file");
             }
